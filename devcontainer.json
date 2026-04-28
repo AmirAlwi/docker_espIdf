@@ -1,0 +1,47 @@
+{
+    "name": "archery_clk_dmd",
+    "image": "esp-idf-v6.0-generic-all",
+    
+    "features": {
+        // set zsh as default shell
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true
+        }
+    },
+    "customizations": {
+        "vscode": {
+            // install vscode extension
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpp-devtools",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-vscode.cpptools-themes",
+                "ms-vscode.hexeditor",
+                "ms-python.python"
+            ],
+            "settings": {
+                // set zsh as default terminal profile
+                // with postCreateCommand, the environment is set up when opening a terminal
+                "terminal.integrated.defaultProfile.linux": "zsh"
+            }
+        
+        }
+    },
+    // mount the workspace folder as a bind mount, so that changes are reflected on the host and in the container
+    "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+    "workspaceFolder": "${localWorkspaceFolder}",
+
+    // run the container in privileged mode and pass through the USB device for flashing and monitoring the esp32
+    "runArgs": [
+        "--privileged",
+        "--device=/dev/ttyUSB0:/dev/ttyUSB0"
+    ],
+
+    "postCreateCommand": [
+        // add the esp-idf export script to zshrc, so that the environment is set up when opening a terminal
+        "echo 'source /opt/esp/idf/export.sh > /dev/null 2>&1' >> ~/.zshrc",
+        // set permissions for the USB device, so that it can be accessed without sudo
+        "sudo chmod 666 /dev/ttyUSB0 || true"
+    ]
+}
