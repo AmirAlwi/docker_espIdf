@@ -34,14 +34,8 @@
 
     // run the container in privileged mode and pass through the USB device for flashing and monitoring the esp32
     "runArgs": [
-        "--privileged",
         "--device=/dev/ttyUSB0:/dev/ttyUSB0"
     ],
 
-    "postCreateCommand": [
-        // add the esp-idf export script to zshrc, so that the environment is set up when opening a terminal
-        "echo 'source /opt/esp/idf/export.sh > /dev/null 2>&1' >> ~/.zshrc",
-        // set permissions for the USB device, so that it can be accessed without sudo
-        "sudo chmod 666 /dev/ttyUSB0 || true"
-    ]
+    "postCreateCommand": "echo 'source /opt/esp/idf/export.sh > /dev/null 2>&1' >> ~/.zshrc"
 }
