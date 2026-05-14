@@ -34,10 +34,20 @@ RUN : \
     wget \
     xz-utils \
     zip \
+    locales \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/* \
   && update-alternatives --install /usr/bin/python python /usr/bin/python3 10 \
   && :
+
+# Generate locale                         <-- ADD THIS BLOCK
+RUN locale-gen en_US.UTF-8 \
+  && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
+# Set locale environment variables        <-- ADD THIS BLOCK
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV LANGUAGE=en_US.UTF-8
 
 # To build the image for a branch or a tag of IDF, pass --build-arg IDF_CLONE_BRANCH_OR_TAG=name.
 # To build the image with a specific commit ID of IDF, pass --build-arg IDF_CHECKOUT_REF=commit-id.
