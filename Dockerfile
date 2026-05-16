@@ -40,11 +40,11 @@ RUN : \
   && update-alternatives --install /usr/bin/python python /usr/bin/python3 10 \
   && :
 
-# Generate locale                         <-- ADD THIS BLOCK
+# Generate locale
 RUN locale-gen en_US.UTF-8 \
   && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
-# Set locale environment variables        <-- ADD THIS BLOCK
+# Set locale environment variables
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
