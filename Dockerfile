@@ -25,6 +25,7 @@ RUN : \
     libsdl2-2.0-0 \
     libslirp0 \
     libusb-1.0-0-dev \
+    usbutils \
     make \
     ninja-build \
     python3 \
