@@ -1,12 +1,9 @@
 # Bind workspace options
 
-1. container will run as root if `containerUser` is not specify.
-
 ## Default
 
 1. don't configure `workspaceMount`
-2. workspace will automatically bind at `/workspaces/<project_folder>`
-3. not required to run in `--priviledged`
+2. not required to run in `--priviledged`
 
 ## Map folder 1 to 1
 
